@@ -16,11 +16,17 @@ GsmSerial::GsmSerial(const int rxPin, const int txPin, const int baudRate)
 
 String GsmSerial::readReceivedData() {
     String receivedData = "";
-    delay(1000); // Delay to ensure data is ready to be read
+    int dataCount = 0;
 
+    delay(1000); // Delay to ensure data is ready to be read
     while (serialModule.available() > 0) {
         char receivedCharacter = (char)serialModule.read();
         receivedData += receivedCharacter;
+
+        if (dataCount > 25)
+            break;
+
+        dataCount++;
     }
 
     return receivedData;
