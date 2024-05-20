@@ -82,7 +82,7 @@ private:
     /**
      * The SoftwareSerial object used for communication with the GSM module.
      */
-    GsmSerial gsmSerialModule;
+    GsmSerial serialModule;
 };
 
 #endif //GSM_GSM_H

@@ -37,7 +37,7 @@ public:
     /**
      * The SoftwareSerial object used for communication with the GSM module.
      */
-    SoftwareSerial GSMSerialModule;
+    SoftwareSerial serialModule;
 
 private:
     /**
@@ -54,6 +54,7 @@ private:
      * The baud rate for the serial communication with the GSM module.
      */
     const int baudRate;
+
 
 };
 

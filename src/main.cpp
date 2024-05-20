@@ -28,7 +28,7 @@ void setup() {
     Serial.println("Signal strength: " + String(signalStrength));
 
     // Test SMS sending
-    const char* phoneNumber = "+98999999999";
+    const char* phoneNumber = "+12132432435";
     const char* message = "Hello, this is a test SMS message.";
     if (gsmModule.sendSms(phoneNumber, message)) {
         Serial.println("SMS sent successfully");

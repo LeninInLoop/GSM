@@ -7,19 +7,19 @@
 #include "GsmSerial.h"
 
 GsmSerial::GsmSerial(const int rxPin, const int txPin, const int baudRate)
-        : GSMSerialModule(rxPin, txPin),
+        : serialModule(rxPin, txPin),
           rxPin(rxPin),
           txPin(txPin),
           baudRate(baudRate) {
-    GSMSerialModule.begin(baudRate);
+    serialModule.begin(baudRate);
 }
 
 String GsmSerial::readReceivedData() {
     String receivedData = "";
     delay(1000); // Delay to ensure data is ready to be read
 
-    while (GSMSerialModule.available() > 0) {
-        char receivedCharacter = (char)GSMSerialModule.read();
+    while (serialModule.available() > 0) {
+        char receivedCharacter = (char)serialModule.read();
         receivedData += receivedCharacter;
     }
 
@@ -27,6 +27,6 @@ String GsmSerial::readReceivedData() {
 }
 
 String GsmSerial::executeCommand(const char* commandToSend) {
-    GSMSerialModule.println(commandToSend); // Send the command to the GSMModule
+    serialModule.println(commandToSend); // Send the command to the GSMModule
     return readReceivedData();
 }
