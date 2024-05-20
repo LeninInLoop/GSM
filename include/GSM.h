@@ -8,6 +8,13 @@ struct GsmRegistrationInfo {
     int registrationState; // Current registration state of the GSM module
 };
 
+struct ProviderInfo {
+    int selectionMode;
+    int operatorFormat;
+    String operatorName;
+    int radioAccessTechnology;
+};
+
 class Gsm {
 public:
     Gsm(int rxPin, int txPin, int baudRate);
@@ -56,6 +63,38 @@ public:
     int getBaudRate() const;
 
     /**
+     * Checks if the SIM card inside the GSM module is ready and responsive.
+     * @return true if the SIM card inside the GSM module is ready, false otherwise.
+     */
+    bool isSIMReady();
+
+    /**
+     * Checks the presence and status of the SIM card.
+     *
+     * The possible responses include:
+     *      - "READY" - SIM card is present and ready for use.
+     *      - "SIM PIN" - SIM card is present but requires a PIN code.
+     *      - "SIM PUK" - SIM card is blocked and requires a PUK code.
+     *      - "NOT INSERTED" - SIM card is not inserted.
+     *
+     * @return status of the card as a String.
+     */
+    String getSIMStatus();
+
+    /**
+     * Retrieves provider information using the provided GsmSerial instance.
+     * This method queries the GSM module for details about the currently selected network provider,
+     * including the selection mode, operator format, operator name, and radio access technology.
+     *
+     * @return A ProviderInfo structure containing the retrieved provider information.
+     *         - selectionMode: The selection mode of the network operator.
+     *         - operatorFormat: The format of the operator identifier.
+     *         - operatorName: The name of the operator.
+     *         - radioAccessTechnology: The radio access technology being used.
+     */
+    ProviderInfo getProviderInfo();
+
+    /**
      * Sends an SMS message using the provided GsmSerial instance.
      * @param phoneNumber the phone number to send the SMS to.
      * @param message the SMS message to be sent.
@@ -83,6 +122,7 @@ private:
      * The SoftwareSerial object used for communication with the GSM module.
      */
     GsmSerial serialModule;
+
 };
 
 #endif //GSM_GSM_H

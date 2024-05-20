@@ -19,7 +19,7 @@ void setup() {
     }
 
     // Test GSM registration details
-    GsmRegistrationInfo gsmRegistrationInfo = gsmModule.fetchRegistrationDetails();
+    auto gsmRegistrationInfo = gsmModule.fetchRegistrationDetails();
     Serial.println("Unsolicited notification enabled: " + String(gsmRegistrationInfo.unsolicitedNotificationEnabled));
     Serial.println("Registration state: " + String(gsmRegistrationInfo.registrationState));
 
@@ -27,14 +27,26 @@ void setup() {
     int signalStrength = gsmModule.getSignalStrength();
     Serial.println("Signal strength: " + String(signalStrength));
 
-    // Test SMS sending
-    const char* phoneNumber = "+12132432435";
-    const char* message = "Hello, this is a test SMS message.";
-    if (gsmModule.sendSms(phoneNumber, message)) {
-        Serial.println("SMS sent successfully");
-    } else {
-        Serial.println("Failed to send SMS");
-    }
+//    // Test SMS sending
+//    const char* phoneNumber = "+989170137789";
+//    const char* message = "Hello, this is a test SMS message.";
+//    if (gsmModule.sendSms(phoneNumber, message)) {
+//        Serial.println("SMS sent successfully");
+//    } else {
+//        Serial.println("Failed to send SMS");
+//    }
+
+    auto AvailableBaudRates = gsmModule.getSIMStatus();
+    Serial.println(AvailableBaudRates);
+
+    auto isSIMReady = gsmModule.isSIMReady();
+    Serial.println(isSIMReady);
+
+    auto providerInfo = gsmModule.getProviderInfo();
+    Serial.println(providerInfo.operatorName);
+    Serial.println(providerInfo.selectionMode);
+    Serial.println(providerInfo.operatorFormat);
+    Serial.println(providerInfo.radioAccessTechnology);
 }
 
 void loop() {
