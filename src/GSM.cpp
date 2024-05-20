@@ -7,7 +7,7 @@ Gsm::Gsm(int rxPin, int txPin, int baudRate)
           baudRate(baudRate),
           serialModule(rxPin, txPin, baudRate) {}
 
-bool Gsm::verifyConnection() {
+bool Gsm::verifySerialConnection() {
     // Check if the GSM module is ready & connected
     String response = serialModule.executeCommand("AT");
     return response.indexOf("OK") != -1;
@@ -40,10 +40,23 @@ int Gsm::getSignalStrength() {
 }
 
 bool Gsm::setUnsolicitedNotification(int mode) {
-    char command[20];
-    sprintf(command, "AT+CGREG=%d", mode);
+    char command[15];
+    switch (mode) {
+        case 0:
+            sprintf(command, "AT+CGREG=0");
+            break;
+        case 1:
+            sprintf(command, "AT+CGREG=1");
+            break;
+        case 2:
+            sprintf(command, "AT+CGREG=2");
+            break;
+        default:
+            // Handle invalid mode
+            return false;
+    }
     String response = serialModule.executeCommand(command);
-    return response.indexOf("OK") != -1;
+    return response.indexOf("OK")!= -1;
 }
 
 int Gsm::getRxPin() const {

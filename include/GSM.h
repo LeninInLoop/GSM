@@ -23,7 +23,7 @@ public:
      * Checks if the GSM module is ready.
      * @return true if the GSM module is ready, false otherwise.
      */
-    bool verifyConnection();
+    bool verifySerialConnection();
 
     /**
      * Retrieves the GSM module registration details.
