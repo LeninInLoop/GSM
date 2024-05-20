@@ -47,7 +47,7 @@ void GsmSms::sendSmsMessage(GsmSerial& gsmModule, const char* message) {
 }
 
 void GsmSms::sendEndOfText(GsmSerial& gsmModule) {
-    gsmModule.GSMModule.write(0x1A);
+    gsmModule.GSMSerialModule.write(0x1A);
 }
 
 bool GsmSms::checkSMSSendResponse(GsmSerial& gsmModule) {

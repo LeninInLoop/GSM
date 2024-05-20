@@ -1,8 +1,11 @@
-#include "Gsm.h"
+#include "GSM.h"
 #include "GsmSms.h"
 
 Gsm::Gsm(int rxPin, int txPin, int baudRate)
-        : rxPin(rxPin), txPin(txPin), baudRate(baudRate), gsmSerialModule(rxPin, txPin, baudRate) {}
+        : rxPin(rxPin),
+          txPin(txPin),
+          baudRate(baudRate),
+          gsmSerialModule(rxPin, txPin, baudRate) {}
 
 bool Gsm::verifyConnection() {
     // Check if the GSM module is ready
@@ -43,6 +46,6 @@ int Gsm::getBaudRate() const {
     return baudRate;
 }
 
-bool Gsm::sendSms(const char* phoneNumber, const char* message) {
+bool Gsm::sendSms(const char *phoneNumber, const char *message) {
     return GsmSms::sendSms(gsmSerialModule, phoneNumber, message);
 }

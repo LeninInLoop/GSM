@@ -34,6 +34,11 @@ public:
      */
     String readReceivedData();
 
+    /**
+     * The SoftwareSerial object used for communication with the GSM module.
+     */
+    SoftwareSerial GSMSerialModule;
+
 private:
     /**
      * The RX pin connected to the GSM module.
@@ -50,10 +55,6 @@ private:
      */
     const int baudRate;
 
-    /**
-     * The SoftwareSerial object used for communication with the GSM module.
-     */
-    SoftwareSerial GSMSerialModule;
 };
 
 #endif //GSM_SERIAL_H

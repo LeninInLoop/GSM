@@ -7,10 +7,10 @@
 #include "GsmSerial.h"
 
 GsmSerial::GsmSerial(const int rxPin, const int txPin, const int baudRate)
-        : rxPin(rxPin),
+        : GSMSerialModule(rxPin, txPin),
+          rxPin(rxPin),
           txPin(txPin),
-          baudRate(baudRate),
-          GSMSerialModule(rxPin, txPin) {
+          baudRate(baudRate) {
     GSMSerialModule.begin(baudRate);
 }
 
