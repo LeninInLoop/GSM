@@ -12,7 +12,7 @@ void setup() {
     delay(5000); // Wait for the GSM module to initialize
 
     // Test GSM module connection
-    if (gsmModule.verifyConnection()) {
+    if (gsmModule.verifySerialConnection()) {
         Serial.println("GSM Connection Established");
     } else {
         Serial.println("GSM Connection Failed");
@@ -27,14 +27,14 @@ void setup() {
     int signalStrength = gsmModule.getSignalStrength();
     Serial.println("Signal strength: " + String(signalStrength));
 
-//    // Test SMS sending
-//    const char* phoneNumber = "+989170137789";
-//    const char* message = "Hello, this is a test SMS message.";
-//    if (gsmModule.sendSms(phoneNumber, message)) {
-//        Serial.println("SMS sent successfully");
-//    } else {
-//        Serial.println("Failed to send SMS");
-//    }
+    // // Test SMS sending
+    // const char* phoneNumber = "+98";
+    // const char* message = "Hello, this is a test SMS message.";
+    // if (gsmModule.sendSms(phoneNumber, message)) {
+    //     Serial.println("SMS sent successfully");
+    // } else {
+    //     Serial.println("Failed to send SMS");
+    // }
 
     auto AvailableBaudRates = gsmModule.getSIMStatus();
     Serial.println(AvailableBaudRates);

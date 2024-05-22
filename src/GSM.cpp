@@ -110,7 +110,7 @@ ProviderInfo Gsm::getProviderInfo() {
             response.indexOf(",") + 1
             ).toInt();
 
-    if (commaCount == 2) {
+    if (commaCount == 3) {
         info.radioAccessTechnology = response.substring(
                 response.indexOf(":"),
                 response.indexOf("OK") - 4

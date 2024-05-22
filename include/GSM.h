@@ -4,15 +4,15 @@
 #include "GsmSerial.h"
 
 struct GsmRegistrationInfo {
-    int unsolicitedNotificationEnabled; // Indicates if unsolicited notifications are enabled
-    int registrationState; // Current registration state of the GSM module
+    int unsolicitedNotificationEnabled = 0; // Indicates if unsolicited notifications are enabled
+    int registrationState = 0; // Current registration state of the GSM module
 };
 
 struct ProviderInfo {
-    int selectionMode;
-    int operatorFormat;
-    String operatorName;
-    int radioAccessTechnology;
+    int selectionMode = 0;
+    int operatorFormat = 0;
+    String operatorName = "";
+    int radioAccessTechnology = 0;
 };
 
 class Gsm {
