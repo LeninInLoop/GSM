@@ -19,7 +19,7 @@ void setup() {
     }
 
     // Test GSM registration details
-    auto gsmRegistrationInfo = gsmModule.fetchRegistrationDetails();
+    auto gsmRegistrationInfo = gsmModule.getRegistrationDetails();
     Serial.println("Unsolicited notification enabled: " + String(gsmRegistrationInfo.unsolicitedNotificationEnabled));
     Serial.println("Registration state: " + String(gsmRegistrationInfo.registrationState));
 
@@ -65,6 +65,11 @@ void setup() {
 
     auto response6 = gsmModule.getISDNNumber();
     Serial.println(response6);
+
+    auto response7 = gsmModule.getBatteryStatus();
+    Serial.println(response7.chargeStatus);
+    Serial.println(response7.chargeLevel);
+    Serial.println(response7.voltage);
 
 }
 

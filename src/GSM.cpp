@@ -16,9 +16,9 @@ bool Gsm::verifySerialConnection()
     return response.indexOf("OK") != -1;
 }
 
-GsmRegistrationInfo Gsm::fetchRegistrationDetails()
+GsmRegistration Gsm::getRegistrationDetails()
 {
-    GsmRegistrationInfo registrationInfo{};
+    GsmRegistration registrationInfo{};
     const String response = serialModule.executeCommand("AT+CGREG?");
 
     registrationInfo.unsolicitedNotificationEnabled = response.substring(
@@ -99,9 +99,9 @@ String Gsm::getSIMStatus()
     return "NOT INSERTED";
 }
 
-ProviderInfo Gsm::getProviderInfo()
+Provider Gsm::getProviderInfo()
 {
-    ProviderInfo info;
+    Provider info;
     String response = serialModule.executeCommand("AT+COPS?");
 
     int commaCount = 0;
@@ -248,4 +248,32 @@ String Gsm::getISDNNumber()
         response.lastIndexOf("\""));
 
     return ISDNNumber;
+}
+
+Battery Gsm::getBatteryStatus()
+{
+    Battery batteryStatus;
+    const String response = serialModule.executeCommand("AT+CBC");
+
+    if (response.indexOf("OK") == -1)
+    {
+        return batteryStatus;
+    }
+
+    batteryStatus.chargeStatus = response.substring(
+        response.indexOf(":") + 1,
+        response.indexOf(",")
+    ).toInt();
+
+    batteryStatus.chargeLevel = response.substring(
+        response.indexOf(",") + 1,
+        response.lastIndexOf(",")
+    ).toInt();
+
+    batteryStatus.voltage = response.substring(
+        response.lastIndexOf(",") + 1,
+        response.lastIndexOf("OK")
+    ).toInt();
+
+    return batteryStatus;
 }

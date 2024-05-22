@@ -3,19 +3,29 @@
 
 #include "GsmSerial.h"
 
-struct GsmRegistrationInfo {
+struct GsmRegistration
+{
     int unsolicitedNotificationEnabled = 0; // Indicates if unsolicited notifications are enabled
     int registrationState = 0; // Current registration state of the GSM module
 };
 
-struct ProviderInfo {
+struct Provider
+{
     int selectionMode = 0;
     int operatorFormat = 0;
     String operatorName = "";
     int radioAccessTechnology = 0;
 };
 
-class Gsm {
+struct Battery
+{
+   bool chargeStatus = false;
+   int chargeLevel = 0;
+   int voltage = 0; // in milivolts.
+};
+
+class Gsm
+{
 public:
     Gsm(int rxPin, int txPin, int baudRate);
 
@@ -29,7 +39,7 @@ public:
      * Retrieves the GSM module registration details.
      * @return GsmRegistrationInfo struct containing the unsolicited notification status and registration state.
      */
-    GsmRegistrationInfo fetchRegistrationDetails();
+    GsmRegistration getRegistrationDetails();
 
     /**
      * Retrieves the signal strength of the GSM module.
@@ -92,7 +102,7 @@ public:
      *         - operatorName: The name of the operator.
      *         - radioAccessTechnology: The radio access technology being used.
      */
-    ProviderInfo getProviderInfo();
+    Provider getProviderInfo();
 
     /**
      * Sends an SMS message using the provided GsmSerial instance.
@@ -162,8 +172,9 @@ public:
      */
     String getISDNNumber();
 
+    Battery getBatteryStatus();
 
-   private:
+private:
     /**
      * The RX pin connected to the GSM module.
      */
@@ -183,7 +194,6 @@ public:
      * The SoftwareSerial object used for communication with the GSM module.
      */
     GsmSerial serialModule;
-
 };
 
 #endif //GSM_GSM_H
