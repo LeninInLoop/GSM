@@ -102,7 +102,68 @@ public:
      */
     bool sendSms(const char* phoneNumber, const char* message);
 
-private:
+    /**
+     * Retrieves the model number of the connected GSM module.
+     *
+     * extracts the model number from the response, and returns it.
+     * if the model number could not be retrieved it returns "NOT_FOUND"
+     *
+     * @return A string representing the model number of the GSM module, or "NOT_FOUND" if the model number could not be retrieved.
+     */
+    String getModelNumber();
+
+    /**
+     * Retrieves the manufacturer name of the connected GSM module.
+     *
+     * Extracts the manufacturer name from the response and returns it.
+     * If the manufacturer name could not be retrieved, it returns "NOT_FOUND".
+     *
+     * @return A string representing the manufacturer name of the GSM module, or "NOT_FOUND" if the manufacturer name could not be retrieved.
+     */
+    String getManufacturerName();
+
+    /**
+     * Retrieves the IMEI (International Mobile Equipment Identity) of the connected GSM module.
+     *
+     * Extracts the IMEI from the response and returns it.
+     * If the IMEI could not be retrieved, it returns "NOT_FOUND".
+     *
+     * @return A string representing the IMEI of the GSM module, or "NOT_FOUND" if the IMEI could not be retrieved.
+     */
+    String getIMEI();
+
+    /**
+     * Retrieves the software version of the connected GSM module.
+     *
+     * Extracts the software version from the response and returns it.
+     * If the software version could not be retrieved, it returns "NOT_FOUND".
+     *
+     * @return A string representing the software version of the GSM module, or "NOT_FOUND" if the software version could not be retrieved.
+     */
+    String getSoftwareVersion();
+
+    /**
+     * Retrieves the International Mobile Subscriber Identity (IMSI) of the connected GSM module.
+     *
+     * Extracts the IMSI from the response of the AT command "AT+CIMI".
+     * If the IMSI could not be retrieved, it returns "NOT_FOUND".
+     *
+     * @return A string representing the IMSI of the GSM module, or "NOT_FOUND" if the IMSI could not be retrieved.
+     */
+    String getIMSI();
+
+    /**
+     * Retrieves the Integrated Services Digital Network (ISDN) Number of the connected GSM module.
+     *
+     * Extracts the ISDN number from the response of the AT command "AT+CNUM".
+     * If the ISDN number could not be retrieved, it returns "NOT_FOUND".
+     *
+     * @return A string representing the ISDN number of the GSM module, "NOT_FOUND" if the ISDN number could not be retrieved.
+     */
+    String getISDNNumber();
+
+
+   private:
     /**
      * The RX pin connected to the GSM module.
      */

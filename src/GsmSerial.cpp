@@ -23,7 +23,7 @@ String GsmSerial::readReceivedData() {
         char receivedCharacter = (char)serialModule.read();
         receivedData += receivedCharacter;
 
-        if (dataCount > 50)
+        if (dataCount > 100)
             break;
 
         dataCount++;

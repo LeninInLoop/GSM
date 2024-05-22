@@ -47,6 +47,25 @@ void setup() {
     Serial.println(providerInfo.selectionMode);
     Serial.println(providerInfo.operatorFormat);
     Serial.println(providerInfo.radioAccessTechnology);
+
+    auto response = gsmModule.getModelNumber();
+    Serial.println(response);
+
+    auto response2 = gsmModule.getManufacturerName();
+    Serial.println(response2);
+
+    auto response3 = gsmModule.getIMEI();
+    Serial.println(response3);
+
+    auto response4 = gsmModule.getSoftwareVersion();
+    Serial.println(response4);
+
+    auto response5 = gsmModule.getIMSI();
+    Serial.println(response5);
+
+    auto response6 = gsmModule.getISDNNumber();
+    Serial.println(response6);
+
 }
 
 void loop() {
