@@ -27,7 +27,7 @@ struct Battery
 class Gsm
 {
 public:
-    Gsm(int rxPin, int txPin, int baudRate);
+    Gsm(int rxPin, int txPin, long int baudRate);
 
     /**
      * Checks if the GSM module is ready.
@@ -70,8 +70,11 @@ public:
      * Gets the baud rate of the GSM module.
      * @return the baud rate.
      */
-    int getBaudRate() const;
+    long int getBaudRate() const;
 
+    bool setBaudRate(long int baudrate);
+
+    bool saveCurrentConfigurations();
     /**
      * Checks if the SIM card inside the GSM module is ready and responsive.
      * @return true if the SIM card inside the GSM module is ready, false otherwise.
@@ -111,6 +114,13 @@ public:
      * @return true if the SMS was sent successfully, false otherwise.
      */
     bool sendSms(const char* phoneNumber, const char* message);
+
+    /**
+     * Calls a number using the provided GsmSerial instance.
+     * @param phoneNumber the phone number to call.
+     * @return true if the Call was sent successfully, false otherwise.
+     */
+    bool call(const char* phoneNumber);
 
     /**
      * Retrieves the model number of the connected GSM module.
@@ -188,7 +198,7 @@ private:
     /**
      * The baud rate for the serial communication with the GSM module.
      */
-    const int baudRate;
+    const long int baudRate;
 
     /**
      * The SoftwareSerial object used for communication with the GSM module.

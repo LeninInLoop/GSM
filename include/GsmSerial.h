@@ -19,7 +19,7 @@ public:
      * @param txPin the TX pin connected to the GSM module.
      * @param baudRate the baud rate for the serial communication.
      */
-    GsmSerial(int rxPin, int txPin, int baudRate);
+    GsmSerial(int rxPin, int txPin, long int baudRate);
 
     /**
      * Executes a command on the GSM module and returns the response.
@@ -53,7 +53,7 @@ private:
     /**
      * The baud rate for the serial communication with the GSM module.
      */
-    const int baudRate;
+    const long int baudRate;
 
 
 };

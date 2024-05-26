@@ -1,15 +1,23 @@
 #include <Arduino.h>
 #include "GSM.h"
 
+#define baudrate 115200
+
 void initializeSerialDebug() {
-    Serial.begin(9600);
+    Serial.begin(baudrate);
 }
 
-Gsm gsmModule(10, 5, 9600);
+Gsm gsmModule(11, 8, baudrate);
 
 void setup() {
     initializeSerialDebug();
     delay(5000); // Wait for the GSM module to initialize
+
+    const auto response_0 = gsmModule.setBaudRate(baudrate);
+    Serial.println(response_0);
+
+    const auto response_1 = gsmModule.saveCurrentConfigurations();
+    Serial.println(response_1);
 
     // Test GSM module connection
     if (gsmModule.verifySerialConnection()) {
@@ -19,7 +27,7 @@ void setup() {
     }
 
     // Test GSM registration details
-    auto gsmRegistrationInfo = gsmModule.getRegistrationDetails();
+    const auto gsmRegistrationInfo = gsmModule.getRegistrationDetails();
     Serial.println("Unsolicited notification enabled: " + String(gsmRegistrationInfo.unsolicitedNotificationEnabled));
     Serial.println("Registration state: " + String(gsmRegistrationInfo.registrationState));
 
@@ -27,50 +35,52 @@ void setup() {
     int signalStrength = gsmModule.getSignalStrength();
     Serial.println("Signal strength: " + String(signalStrength));
 
-    // // Test SMS sending
-    // const char* phoneNumber = "+98";
-    // const char* message = "Hello, this is a test SMS message.";
-    // if (gsmModule.sendSms(phoneNumber, message)) {
-    //     Serial.println("SMS sent successfully");
-    // } else {
-    //     Serial.println("Failed to send SMS");
-    // }
+    // Test SMS sending
+    const auto phoneNumber = "+989170137789";
+    const auto message = "Hello, this is a test SMS message.";
+    if (gsmModule.sendSms(phoneNumber, message)) {
+        Serial.println("SMS sent successfully");
+    } else {
+        Serial.println("Failed to send SMS");
+    }
 
-    auto AvailableBaudRates = gsmModule.getSIMStatus();
+    const auto AvailableBaudRates = gsmModule.getSIMStatus();
     Serial.println(AvailableBaudRates);
 
-    auto isSIMReady = gsmModule.isSIMReady();
+    const auto isSIMReady = gsmModule.isSIMReady();
     Serial.println(isSIMReady);
 
-    auto providerInfo = gsmModule.getProviderInfo();
+    const auto providerInfo = gsmModule.getProviderInfo();
     Serial.println(providerInfo.operatorName);
     Serial.println(providerInfo.selectionMode);
     Serial.println(providerInfo.operatorFormat);
     Serial.println(providerInfo.radioAccessTechnology);
 
-    auto response = gsmModule.getModelNumber();
+    const auto response = gsmModule.getModelNumber();
     Serial.println(response);
 
-    auto response2 = gsmModule.getManufacturerName();
+    const auto response2 = gsmModule.getManufacturerName();
     Serial.println(response2);
 
-    auto response3 = gsmModule.getIMEI();
+    const auto response3 = gsmModule.getIMEI();
     Serial.println(response3);
 
-    auto response4 = gsmModule.getSoftwareVersion();
+    const auto response4 = gsmModule.getSoftwareVersion();
     Serial.println(response4);
 
-    auto response5 = gsmModule.getIMSI();
+    const auto response5 = gsmModule.getIMSI();
     Serial.println(response5);
 
-    auto response6 = gsmModule.getISDNNumber();
+    const auto response6 = gsmModule.getISDNNumber();
     Serial.println(response6);
 
-    auto response7 = gsmModule.getBatteryStatus();
+    const auto response7 = gsmModule.getBatteryStatus();
     Serial.println(response7.chargeStatus);
     Serial.println(response7.chargeLevel);
     Serial.println(response7.voltage);
 
+    const auto response8 = gsmModule.call("+989170137789");
+    Serial.println(response8);
 }
 
 void loop() {

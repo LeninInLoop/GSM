@@ -6,7 +6,7 @@
 #include <Arduino.h>
 #include "GsmSerial.h"
 
-GsmSerial::GsmSerial(const int rxPin, const int txPin, const int baudRate)
+GsmSerial::GsmSerial(const int rxPin, const int txPin, const long int baudRate)
         : serialModule(rxPin, txPin),
           rxPin(rxPin),
           txPin(txPin),
@@ -20,7 +20,7 @@ String GsmSerial::readReceivedData() {
 
     delay(1000); // Delay to ensure data is ready to be read
     while (serialModule.available() > 0) {
-        char receivedCharacter = (char)serialModule.read();
+        const char receivedCharacter = static_cast<char>(serialModule.read());
         receivedData += receivedCharacter;
 
         if (dataCount > 100)

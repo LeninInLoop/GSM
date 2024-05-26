@@ -27,7 +27,7 @@ bool GsmSms::sendSms(GsmSerial& gsmModule, const char* phoneNumber, const char* 
 }
 
 bool GsmSms::setTextMode(GsmSerial& gsmModule) {
-    String response = gsmModule.executeCommand("AT+CMGF=1");
+    const String response = gsmModule.executeCommand("AT+CMGF=1");
     return response.indexOf("OK") != -1;
 }
 
@@ -38,7 +38,7 @@ const char* GsmSms::buildSendSmsCommand(const char* phoneNumber) {
 }
 
 bool GsmSms::initiateSMSSend(GsmSerial& gsmModule, const char* command) {
-    String response = gsmModule.executeCommand(command);
+    const String response = gsmModule.executeCommand(command);
     return response.indexOf(">") != -1;
 }
 
@@ -51,8 +51,8 @@ void GsmSms::sendEndOfText(GsmSerial& gsmModule) {
 }
 
 bool GsmSms::checkSMSSendResponse(GsmSerial& gsmModule) {
-    unsigned long startTime = millis();
-    const unsigned long timeout = 10000; // 10 seconds timeout
+    const unsigned long startTime = millis();
+    constexpr unsigned long timeout = 10000; // 10 seconds timeout
 
     while (millis() - startTime < timeout) {
         String response = gsmModule.readReceivedData();

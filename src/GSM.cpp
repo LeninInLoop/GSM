@@ -1,12 +1,16 @@
 #include "GSM.h"
+
+#include <GsmCall.h>
+
 #include "GsmSms.h"
 
-Gsm::Gsm(int const rxPin, int const txPin, int const baudRate)
+Gsm::Gsm(int const rxPin, int const txPin, long int const baudRate)
     : rxPin(rxPin),
       txPin(txPin),
       baudRate(baudRate),
       serialModule(rxPin, txPin, baudRate)
 {
+    setBaudRate(baudRate);
 }
 
 bool Gsm::verifySerialConnection()
@@ -76,9 +80,24 @@ int Gsm::getTxPin() const
     return txPin;
 }
 
-int Gsm::getBaudRate() const
+long int Gsm::getBaudRate() const
 {
     return baudRate;
+}
+
+bool Gsm::setBaudRate(long int const baudrate)
+{
+    char command[50];
+    sprintf(command,"AT+IPR=%ld",baudrate);
+
+    const String response = serialModule.executeCommand(command);
+    return response.indexOf("OK") != -1;
+}
+
+bool Gsm::saveCurrentConfigurations()
+{
+    const String response = serialModule.executeCommand("AT&W");
+    return response.indexOf("OK") != -1;
 }
 
 bool Gsm::isSIMReady()
@@ -145,6 +164,11 @@ Provider Gsm::getProviderInfo()
 bool Gsm::sendSms(const char* phoneNumber, const char* message)
 {
     return GsmSms::sendSms(serialModule, phoneNumber, message);
+}
+
+bool Gsm::call(const char* phoneNumber)
+{
+    return GsmCall::call(serialModule, phoneNumber);
 }
 
 String Gsm::getModelNumber()
